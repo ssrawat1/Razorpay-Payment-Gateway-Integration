@@ -1,0 +1,1 @@
+export const RZP_KEY = import.meta.env.VITE_RZP_KEY

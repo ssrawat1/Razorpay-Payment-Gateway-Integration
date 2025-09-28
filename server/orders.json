@@ -1,0 +1,13 @@
+[
+  {
+    "orderId": "order_RKvdmuDto6tThV",
+    "orderStatus": "created",
+    "amount": 4999,
+    "courseId": "64fa1c9e3b7d92001c4a7f21",
+    "courseName": "Node.js Fundamentals Course",
+    "user": {
+      "name": "Sanjay Singh Rawat",
+      "mobile": "9876543210"
+    }
+  }
+]
