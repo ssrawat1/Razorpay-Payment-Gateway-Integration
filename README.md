@@ -9,6 +9,7 @@ This repository demonstrates how to integrate the **Razorpay Payment Gateway** i
 
 * Create Razorpay orders
 * Accept secure payments using Razorpay
+* Make sure that don't accept the payments amount from client(because client can modify it and brings a humoungus blunder)
 * Verify payments with server-side signature verification
-* Example frontend + backend setup
+ 
 
