@@ -5,6 +5,5 @@ export default function customVerifyWebhookSignature({ payload, preGeneratedSign
     .createHmac('sha256', process.env.RZP_WEBHOOK_SECRET)
     .update(payload.toString())
     .digest('hex');
-
   return selfGeneratedSignature === preGeneratedSignature;
 }

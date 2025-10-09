@@ -55,7 +55,7 @@ export const createOrder = async (req, res, next) => {
     return res.status(201).json({ success: true, orderId: order.id, orderStatus: order.status });
   } catch (error) {
     console.log('Error occur while creating order:', error);
-    return res.status(500).json({ success: false, error: 'Sever response is not ok' });
+    return res.status(500).json({ success: false, error: 'Server response is not ok' });
   }
 };
 
@@ -63,7 +63,7 @@ export const verifyOrderId = async (req, res, next) => {
   const { paymentId, orderId, signature } = req.body;
 
   if (!orderId) {
-    return res.status(400).json({ success: false, error: ' Do not get any order ID' });
+    return res.status(400).json({ success: false, error: 'Order ID not provided' });
   }
 
   try {
