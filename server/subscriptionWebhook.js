@@ -1,5 +1,6 @@
 import express from 'express';
 import customVerifyWebhookSignature from './middleware/customVerifyWebhookSignature.js';
+import verifyWebhookSignature from './middleware/verifyWebhookSignature.js';
 
 const app = express();
 
@@ -7,12 +8,12 @@ app.get('/', (req, res) => {
   res.json({ message: 'Listening Subscriptions Events Using Razorpay Webhook' });
 });
 
-app.post('/rzp-webhook', express.raw({ type: 'application/json' }), (req, res) => {
-  const preGeneratedSignature = req.headers['x-razorpay-signature'];
+app.post('/rzp-webhook', (req, res) => {
+  const signature = req.headers['x-razorpay-signature'];
 
-  const isVerified = customVerifyWebhookSignature({ payload: req.body, preGeneratedSignature });
-  /* Here we write backend logic */
-  console.log(isVerified);
+  const isVerified = verifyWebhookSignature({ body: JSON.stringify(req.body), signature });
+  console.log({ isVerified });
+
   if (!isVerified) {
     return res.send.json({ message: "You don't have right permissions" });
   }
