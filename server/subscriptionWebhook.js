@@ -1,5 +1,5 @@
 import express from 'express';
-import crypto from 'crypto';
+import customVerifyWebhookSignature from './middleware/customVerifyWebhookSignature.js';
 
 const app = express();
 
@@ -8,20 +8,14 @@ app.get('/', (req, res) => {
 });
 
 app.post('/rzp-webhook', express.raw({ type: 'application/json' }), (req, res) => {
-  console.log(req.headers);
-
   const preGeneratedSignature = req.headers['x-razorpay-signature'];
 
-  const selfGeneratedSignature = crypto
-    .createHmac('sha256', process.env.RZP_WEBHOOK_SECRET)
-    .update(req.body.toString())
-    .digest('hex');
-
-  if (selfGeneratedSignature !== preGeneratedSignature) {
+  const isVerified = customVerifyWebhookSignature({ payload: req.body, preGeneratedSignature });
+  /* Here we write backend logic */
+  console.log(isVerified);
+  if (!isVerified) {
     return res.send.json({ message: "You don't have right permissions" });
   }
-  /* Here we write backend logic */
-
   res.sendStatus(200);
 });
 
